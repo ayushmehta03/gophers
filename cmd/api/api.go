@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"time"
 )
@@ -22,6 +21,8 @@ type config struct{
 func (app *application) mount() *http.ServeMux{
 		mux:=http.NewServeMux()
 
+		mux.HandleFunc("GET /v1/health",app.healtCheckHandler)
+
 		return mux
 
 }
@@ -37,7 +38,6 @@ func (app *application) run(mux *http.ServeMux) error{
 		
 	}
 
-	log.Fatal("server has started now")
 
 	return srv.ListenAndServe()
 }
