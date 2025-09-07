@@ -11,33 +11,31 @@ type application struct{
 
 }
 
+
 type config struct{
 	addr string
 }
 
 
-
-
 func (app *application) mount() *http.ServeMux{
-		mux:=http.NewServeMux()
+	mux:=http.NewServeMux()
 
-		mux.HandleFunc("GET /v1/health",app.healtCheckHandler)
+	mux.HandleFunc("GET /health",app.healthSttaus)
 
-		return mux
-
+	mux.HandleFunc("GET /wealth", app.wealthSttaus)
+	return mux
 }
 
-func (app *application) run(mux *http.ServeMux) error{
 
-	srv:=&http.Server{
+func (app *application) run(mux *http.ServeMux) error{
+	serv:=&http.Server{
 		Addr: app.config.addr,
 		Handler: mux,
 		WriteTimeout: time.Second*30,
 		ReadTimeout: time.Second*10,
-		IdleTimeout: time.Minute,
-		
+		IdleTimeout: time.Second*60,
+
 	}
 
-
-	return srv.ListenAndServe()
+	return serv.ListenAndServe()
 }
