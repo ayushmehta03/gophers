@@ -13,3 +13,4 @@ func (app *application) homePage( w http.ResponseWriter, r *http.Request){
 func(app *application) profilePage(w http.ResponseWriter, r *http.Request){
 	w.Write([]byte("Hey from profile page"))
 }
+
