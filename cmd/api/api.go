@@ -17,8 +17,16 @@ type application struct{
 
 type config struct{
 	addr string
+	db dbConfig
 }
 
+
+type dbConfig struct{
+	addr string 
+	maxOpenConns int
+	maxIdleConss int
+	maxIdleTime string
+}
 
 func (app*application) mount() *chi.Mux{
 		r:=chi.NewRouter()
