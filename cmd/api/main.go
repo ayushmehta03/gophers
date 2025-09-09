@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gophers/internals/db"
 	"gophers/internals/env"
 	"gophers/internals/store"
 	"log"
@@ -18,7 +19,23 @@ func main(){
 
 		},
 	}
-		store:=store.NewStorage(nil)
+	db,err:=db.New(
+	cfg.db.addr,
+	cfg.db.maxOpenConns,
+	cfg.db.maxIdleConss,
+	cfg.db.maxIdleTime,
+	)
+	if err!=nil{
+		log.Panic(err)
+	}
+
+
+
+
+
+
+
+		store:=store.NewStorage(db)
 
 
 	app:=application{
